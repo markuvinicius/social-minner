@@ -21,10 +21,7 @@ class TwitterStreamListenner(tweepy.StreamListener):
             self.producer.flush(30)
         except KeyboardInterrupt:
             pass
-        print( 'entrou no on_data')
-        #p = Producer({'bootstrap.servers': 'broker:9092'})
-        #p.produce('bolsonaro', key='hello', value=data)
-        #p.flush(30)
+        print( 'entrou no on_data')        
 
     def acked(self, err, msg):
         if err is not None:
