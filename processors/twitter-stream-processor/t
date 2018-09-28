@@ -1,0 +1,282 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.5.RELEASE)
+
+2018-09-28 16:44:56.809  INFO 3206 --- [           main] .s.t.p.TwitterStreamProcessorApplication : Starting TwitterStreamProcessorApplication on Markus-MacBook-Pro.local with PID 3206 (/Users/markuviniciusdasilva/Documents/WorkSpace/social-minner/processors/twitter-stream-processor/build/libs/twitter-stream-processor-0.0.1-SNAPSHOT.jar started by markuviniciusdasilva in /Users/markuviniciusdasilva/Documents/WorkSpace/social-minner/processors/twitter-stream-processor)
+2018-09-28 16:44:56.818  INFO 3206 --- [           main] .s.t.p.TwitterStreamProcessorApplication : No active profile set, falling back to default profiles: default
+2018-09-28 16:44:56.917  INFO 3206 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@1dde4cb2: startup date [Fri Sep 28 16:44:56 BRT 2018]; root of context hierarchy
+2018-09-28 16:44:57.657  INFO 3206 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$912df209] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-09-28 16:44:57.996  INFO 3206 --- [           main] org.apache.kafka.streams.StreamsConfig   : StreamsConfig values: 
+	application.id = test-streams
+	application.server = 
+	bootstrap.servers = [127.0.0.1:29092]
+	buffered.records.per.partition = 1000
+	cache.max.bytes.buffering = 10485760
+	client.id = 
+	commit.interval.ms = 30000
+	connections.max.idle.ms = 540000
+	default.deserialization.exception.handler = class org.apache.kafka.streams.errors.LogAndFailExceptionHandler
+	default.key.serde = class org.apache.kafka.common.serialization.Serdes$StringSerde
+	default.timestamp.extractor = class org.apache.kafka.streams.processor.FailOnInvalidTimestamp
+	default.value.serde = class org.springframework.kafka.support.serializer.JsonSerde
+	key.serde = null
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	num.standby.replicas = 0
+	num.stream.threads = 1
+	partition.grouper = class org.apache.kafka.streams.processor.DefaultPartitionGrouper
+	poll.ms = 100
+	processing.guarantee = at_least_once
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	replication.factor = 1
+	request.timeout.ms = 40000
+	retry.backoff.ms = 100
+	rocksdb.config.setter = null
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	state.cleanup.delay.ms = 600000
+	state.dir = /tmp/kafka-streams
+	timestamp.extractor = null
+	upgrade.from = null
+	value.serde = null
+	windowstore.changelog.additional.retention.ms = 86400000
+	zookeeper.connect = 
+
+2018-09-28 16:44:58.607  INFO 3206 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-09-28 16:44:58.620  INFO 3206 --- [           main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147482647
+2018-09-28 16:44:58.674  INFO 3206 --- [           main] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] Creating restore consumer client
+2018-09-28 16:44:58.691  INFO 3206 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = earliest
+	bootstrap.servers = [127.0.0.1:29092]
+	check.crcs = true
+	client.id = test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-restore-consumer
+	connections.max.idle.ms = 540000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = 
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 2147483647
+	max.poll.records = 1000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2018-09-28 16:44:58.786  WARN 3206 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : The configuration 'spring.json.key.default.type' was supplied but isn't a known config.
+2018-09-28 16:44:58.788  WARN 3206 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : The configuration 'spring.json.default.value.type' was supplied but isn't a known config.
+2018-09-28 16:44:58.793  INFO 3206 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 1.0.2
+2018-09-28 16:44:58.794  INFO 3206 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : 2a121f7b1d402825
+2018-09-28 16:44:58.800  INFO 3206 --- [           main] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] Creating shared producer client
+2018-09-28 16:44:58.804  INFO 3206 --- [           main] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = 1
+	batch.size = 16384
+	bootstrap.servers = [127.0.0.1:29092]
+	buffer.memory = 33554432
+	client.id = test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-producer
+	compression.type = none
+	connections.max.idle.ms = 540000
+	enable.idempotence = false
+	interceptor.classes = null
+	key.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+	linger.ms = 100
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 10
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+
+2018-09-28 16:44:58.834  WARN 3206 --- [           main] o.a.k.clients.producer.ProducerConfig    : The configuration 'spring.json.key.default.type' was supplied but isn't a known config.
+2018-09-28 16:44:58.835  WARN 3206 --- [           main] o.a.k.clients.producer.ProducerConfig    : The configuration 'spring.json.default.value.type' was supplied but isn't a known config.
+2018-09-28 16:44:58.835  INFO 3206 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 1.0.2
+2018-09-28 16:44:58.835  INFO 3206 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : 2a121f7b1d402825
+2018-09-28 16:44:58.842  INFO 3206 --- [           main] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] Creating consumer client
+2018-09-28 16:44:58.844  INFO 3206 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = earliest
+	bootstrap.servers = [127.0.0.1:29092]
+	check.crcs = true
+	client.id = test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-consumer
+	connections.max.idle.ms = 540000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = test-streams
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 2147483647
+	max.poll.records = 1000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [org.apache.kafka.streams.processor.internals.StreamPartitionAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2018-09-28 16:44:58.866  WARN 3206 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : The configuration 'spring.json.key.default.type' was supplied but isn't a known config.
+2018-09-28 16:44:58.866  WARN 3206 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : The configuration 'spring.json.default.value.type' was supplied but isn't a known config.
+2018-09-28 16:44:58.866  INFO 3206 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 1.0.2
+2018-09-28 16:44:58.866  INFO 3206 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : 2a121f7b1d402825
+2018-09-28 16:44:59.070  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] Starting
+2018-09-28 16:44:59.071  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] State transition from CREATED to RUNNING
+2018-09-28 16:44:59.074  INFO 3206 --- [           main] org.apache.kafka.streams.KafkaStreams    : stream-client [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467]Started Streams client
+2018-09-28 16:44:59.074  INFO 3206 --- [           main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483547
+2018-09-28 16:44:59.091  INFO 3206 --- [-StreamThread-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-consumer, groupId=test-streams] Discovered group coordinator localhost:29092 (id: 2147483646 rack: null)
+2018-09-28 16:44:59.096  INFO 3206 --- [-StreamThread-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-consumer, groupId=test-streams] Revoking previously assigned partitions []
+2018-09-28 16:44:59.097  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] State transition from RUNNING to PARTITIONS_REVOKED
+2018-09-28 16:44:59.097  INFO 3206 --- [-StreamThread-1] org.apache.kafka.streams.KafkaStreams    : stream-client [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467]State transition from RUNNING to REBALANCING
+2018-09-28 16:44:59.098  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] partition revocation took 1 ms.
+	suspended active tasks: []
+	suspended standby tasks: []
+2018-09-28 16:44:59.098  INFO 3206 --- [-StreamThread-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-consumer, groupId=test-streams] (Re-)joining group
+2018-09-28 16:44:59.119  INFO 3206 --- [           main] .s.t.p.TwitterStreamProcessorApplication : Started TwitterStreamProcessorApplication in 3.184 seconds (JVM running for 3.988)
+2018-09-28 16:44:59.477  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.i.StreamPartitionAssignor      : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-consumer] Assigned tasks to clients as {f6705454-5cc0-4791-9ae9-5b27f1b97467=[activeTasks: ([]) standbyTasks: ([]) assignedTasks: ([]) prevActiveTasks: ([]) prevAssignedTasks: ([]) capacity: 1]}.
+2018-09-28 16:44:59.482  INFO 3206 --- [-StreamThread-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-consumer, groupId=test-streams] Successfully joined group with generation 12
+2018-09-28 16:44:59.483  INFO 3206 --- [-StreamThread-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-consumer, groupId=test-streams] Setting newly assigned partitions []
+2018-09-28 16:44:59.483  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] State transition from PARTITIONS_REVOKED to PARTITIONS_ASSIGNED
+2018-09-28 16:44:59.484  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] partition assignment took 1 ms.
+	current active tasks: []
+	current standby tasks: []
+	previous active tasks: []
+
+2018-09-28 16:44:59.590  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] State transition from PARTITIONS_ASSIGNED to RUNNING
+2018-09-28 16:44:59.590  INFO 3206 --- [-StreamThread-1] org.apache.kafka.streams.KafkaStreams    : stream-client [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467]State transition from REBALANCING to RUNNING
+2018-09-28 16:45:37.181  INFO 3206 --- [       Thread-1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@1dde4cb2: startup date [Fri Sep 28 16:44:56 BRT 2018]; root of context hierarchy
+2018-09-28 16:45:37.184  INFO 3206 --- [       Thread-1] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483547
+2018-09-28 16:45:37.184  INFO 3206 --- [       Thread-1] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147482647
+2018-09-28 16:45:37.185  INFO 3206 --- [       Thread-1] org.apache.kafka.streams.KafkaStreams    : stream-client [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467]State transition from RUNNING to PENDING_SHUTDOWN
+2018-09-28 16:45:37.186  INFO 3206 --- [       Thread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] Informed to shut down
+2018-09-28 16:45:37.186  INFO 3206 --- [       Thread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] State transition from RUNNING to PENDING_SHUTDOWN
+2018-09-28 16:45:37.250  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] Shutting down
+2018-09-28 16:45:37.253  INFO 3206 --- [-StreamThread-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1-producer] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2018-09-28 16:45:37.266  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] State transition from PENDING_SHUTDOWN to DEAD
+2018-09-28 16:45:37.266  INFO 3206 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467-StreamThread-1] Shutdown complete
+2018-09-28 16:45:37.266  INFO 3206 --- [ms-close-thread] org.apache.kafka.streams.KafkaStreams    : stream-client [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467]State transition from PENDING_SHUTDOWN to NOT_RUNNING
+2018-09-28 16:45:37.267  INFO 3206 --- [       Thread-1] org.apache.kafka.streams.KafkaStreams    : stream-client [test-streams-f6705454-5cc0-4791-9ae9-5b27f1b97467]Streams client stopped completely
+2018-09-28 16:45:37.267  INFO 3206 --- [       Thread-1] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2018-09-28 16:45:37.268  INFO 3206 --- [       Thread-1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
