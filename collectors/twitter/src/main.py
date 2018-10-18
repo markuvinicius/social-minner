@@ -1,4 +1,5 @@
 import tweepy
+import json
 from confluent_kafka import Producer
 
 #override tweepy.StreamListener to add logic to on_data
@@ -12,16 +13,22 @@ class TwitterStreamListenner(tweepy.StreamListener):
        self.topic = topic
 
     def on_data(self, data):
-       #print("DATA")
-       #print(data)
-
+       
         try:        
-            self.producer.produce(self.topic, data , callback=self.acked)
-            self.producer.poll(0.5)
-            self.producer.flush(30)
+            json_data = json.loads(data)
+            text = json_data['text']
+            #print( "Texto: " + json_data['text'])
+            #print( "Data da Postagem" + json_data['created_at'])
+            
+            self.producer.produce(self.topic, text , callback=self.acked)
+            #self.producer.poll(0.5)
+            #self.producer.flush(30)
         except KeyboardInterrupt:
             pass
-        print( 'entrou no on_data')        
+        except KeyError:
+            pass
+
+        #print( 'entrou no on_data')        
 
     def acked(self, err, msg):
         if err is not None:
