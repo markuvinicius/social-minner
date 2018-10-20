@@ -1,23 +1,23 @@
 package com.socialminner.twitter.streams;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.common.utils.Bytes;
+import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.streams.Consumed;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.KeyValueMapper;
-import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.Reducer;
-import org.apache.kafka.streams.state.KeyValueStore;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -28,8 +28,13 @@ import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.annotation.KafkaStreamsDefaultConfiguration;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerde;
+import com.socialminner.twitter.models.TweeterData;
 
 import com.socialminner.twitter.models.TweeterData;
+import com.socialminner.twitter.repository.Converter;
+import com.socialminner.twitter.repository.TweetDeserializer;
+import com.socialminner.twitter.repository.TweetSerializer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +47,14 @@ public class KafkaStreamsConfiguration {
 	private KafkaProperties kafkaProperties;
 	
 	private static final Logger logger = LoggerFactory.getLogger(KafkaStreamsConfiguration.class);
+	
+	// TODO: the following can be removed with a serialization factory
+    Map<String, Object> serdeProps = new HashMap<>();
+	
+	final Serializer<TweeterData> tweeterSerializer = new TweetSerializer<>();
+	final Deserializer<TweeterData> tweeterDeserializer = new TweetDeserializer<>();
+	
+	final Serde<TweeterData> tweetSerDe = Serdes.serdeFrom(tweeterSerializer, tweeterDeserializer);
 		
 	
 	@Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
@@ -56,13 +69,25 @@ public class KafkaStreamsConfiguration {
         return new StreamsConfig(props);
     }
 	
-    @Bean
+    //@Bean
     public KStream<String, String> TestStream(StreamsBuilder builder) {
-    	KStream<String, String> stream = builder.
-    										stream("bolsonaro", Consumed.with(Serdes.String(), Serdes.String())) 
-		    								.mapValues(String::toUpperCase);
     	
-    	stream.to("saida", Produced.with(Serdes.String(), Serdes.String()));
+
+        serdeProps.put("JsonPOJOClass", TweeterData.class);
+        tweeterSerializer.configure(serdeProps, false);
+
+        
+        serdeProps.put("JsonPOJOClass", TweeterData.class);
+        tweeterDeserializer.configure(serdeProps, false);
+    		
+    	
+    	KStream<String, TweeterData> stream = builder.stream("bolsonaro", Consumed.with(Serdes.String(), tweetSerDe ));
+    	
+    	KStream<String, String> text = stream.mapValues( tweet -> tweet.getText());
+    	
+    	text.to("saida", Produced.with( Serdes.String(), Serdes.String() ));
+    	
+    	Runtime.getRuntime().addShutdownHook(new Thread(text::close));
     	
     	while (true) {
     		logger.info( stream.toString() );
@@ -72,22 +97,52 @@ public class KafkaStreamsConfiguration {
     			break;
     		}
     	}
+    	    	    	        
+        return text;
+    }
+    
+    @Bean
+    public KStream<String, TweeterData> TwitterStream(StreamsBuilder builder){
+    	KStream<String,TweeterData> twitterInputStream = builder
+    														.stream("bolsonaro" , 
+    																Consumed.with( Serdes.String() , 
+    																			   new JsonSerde<>(TweeterData.class)));    														
     	
+    	twitterInputStream.print();
     	
+    	while (true) {
+    		logger.info( twitterInputStream.toString() );
+    		try {
+    			Thread.sleep(5000);
+    		}catch (InterruptedException e) {
+    			break;
+    		}
+    	}
     	
-    	//KTable<String, Test> combinedDocuments = stream
-		//	.map(new TestKeyValueMapper())
-		//	.groupByKey()
-		//	.reduce(new TestReducer(), Materialized.<String, Test, KeyValueStore<Bytes, byte[]>>as("streams-json-store"))
-    	//	;
+    	return twitterInputStream;
     	
-    	//combinedDocuments.toStream().to("streams-json-output", Produced.with(Serdes.String(), new JsonSerde<>(Test.class)));
-    	    	        
-        return stream;
+    }
+    
+    public static class TweetValueMapper implements KeyValueMapper<String, String, KeyValue<String, TweeterData>>{
+
+		@Override
+		public KeyValue<String, TweeterData> apply(String key, String value) {
+			
+			TweeterData tweet = null;
+			try {
+				tweet = Converter.fromJsonString(value);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// TODO Auto-generated method stub
+			return new KeyValue<String, TweeterData>( tweet.getIDStr() , tweet );
+		}
+    	
     }
     
     public static class TestKeyValueMapper implements KeyValueMapper<String, Test, KeyValue<String, Test>> {
-
 		@Override
 		public KeyValue<String, Test> apply(String key, Test value) {
 			return new KeyValue<String, KafkaStreamsConfiguration.Test>(value.getKey(), value);
